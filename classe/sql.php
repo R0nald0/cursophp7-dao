@@ -9,11 +9,11 @@ class Sql extends PDO{
 	 	
 	 } 
 
-     private function setParams($statement,$parameters = array ()){
-         foreach ($parameters as $key => $value) {
-         	$this->bindParam($statement,$key,$value);
-         }
-     }
+		   private function setParams($statement,$parameters = array ()){
+		    foreach ($parameters as $key => $value) {
+		        $this->setParam($statement,$key,$value);
+		    }
+		}
 
      private function setParam($statement,$key,$value){
 
@@ -25,13 +25,15 @@ class Sql extends PDO{
 
 	     $stmt = $this->conn->prepare($rawQuery);
 
-	      $this->setParams($stmt,$rawQuery);
+	      $this->setParams($stmt,$param);
 
 	      $stmt->execute();
 
 	      return $stmt;
 
 	 }
+
+
 
 	 public function select($rawQuery,$params= array()):array
 	 {
