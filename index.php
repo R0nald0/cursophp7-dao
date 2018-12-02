@@ -2,10 +2,10 @@
 
 require_once ("config.php");
 
-//$root = new Usuario();
+$root = new Usuario();
 
-//$root->loadByid(2);
-//echo $root;
+$root->loadByid(2);
+echo $root;
   
 //$lista = Usuario::getList();
 
@@ -21,9 +21,13 @@ require_once ("config.php");
 //$usuarios =$sql->select("SELECT *FROM tb_usario");
 //echo json_encode($usuarios);
 
-$validar = new Usuario();
-$validar->valida("miau","123");
+//$validar = new Usuario();
+//$validar->valida("miau","123");
 
-echo $validar;
+//echo $validar;
+//$aluno = new Usuario("alu","091");
+//$aluno->insert();
+//echo $aluno;
 
-?>
+
+?> 

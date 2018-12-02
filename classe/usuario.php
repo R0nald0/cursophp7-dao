@@ -46,6 +46,13 @@
 
      }
 
+     public function update(){
+
+        $sql =new $Sql();
+
+        
+     }
+
 
      public static function search($login){
         
@@ -68,34 +75,54 @@
 
           if (count($results)>0) {
               
-              $row =$results[0];
+             $this->setData($results);
 
-               $this->setIdusuario($row['idusuario']);
-               $this->setDessenha($row['dessenha']);
-               $this->setDeslogin($row['deslogin']);
-               $this->setDtcadastro(new datetime($row['dtcadastro']));
           }else{
 
             throw new Exception("Erro no login ou senha");
             
           }
      }
+
+     public function setData($data){
+        
+           $this->setIdusuario($data['idusuario']);
+           $this->setDessenha($data['dessenha']);
+           $this->setDeslogin($data['deslogin']);
+           $this->setDtcadastro(new datetime($data['dtcadastro']));
+     }
+
+     public function __construct($login ="",$password = ""){
+
+        $this->setDeslogin($login);
+        $this->setDessenha($password);
+     }
+
+     public function insert(){
+        $sql= new Sql();
+
+        $results =$sql->select("CALL sp_usuario_insert(:LOGIN,:PASSWORD)",array(
+                ":LOGIN"=>$this->getDeslogin(),
+                ":PASSWORD"=>$this->getDessenha()
+            ));
+
+          if (count($results)>0) {
+
+            $this->setData($results[0]);
+               
+          }
+
+     }
  	
  	public function loadByid($id){
- 		$sql = new sql();
+ 		$sql = new Sql();
 
  		$results = $sql->select("SELECT *FROM tb_usuario WHERE idusuario=:ID",array(
            ":ID"=>$id
  		)); 
 
  		if (count($results) > 0) {
- 		
-          $row = $results[0];
-
-        $this->setDessenha($row['dessenha']);
-        $this->setDeslogin($row['deslogin']);
-        $this->setIdusuario($row['idusuario']);
-        $this->setDtcadastro( new DateTime($row['dtcadastro']));
+ 		  $this->setData($results);
  		}
  	}
 
