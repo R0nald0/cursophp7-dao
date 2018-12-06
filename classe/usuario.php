@@ -46,12 +46,6 @@
 
      }
 
-     public function update(){
-
-        $sql =new $Sql();
-
-        
-     }
 
 
      public static function search($login){
@@ -113,6 +107,36 @@
           }
 
      }
+
+
+     public function update($login,$password){
+
+          $this->setDeslogin($login);
+          $this->setDessenha($password);
+
+        $sql =new Sql();
+
+        $sql->query("UPDATE tb_usuario SET deslogin=:LOGIN ,dessenha=:PASSWORD WHERE idusuario =:ID",array(
+              ":LOGIN"=>$this->getDeslogin(),
+              ":PASSWORD"=>$this->getDessenha(),         
+              ":ID"=>$this->getIdusuario()
+
+            ));
+     }
+
+     public function delete(){
+        $sql =new Sql();
+
+        $sql->query("DELETE FROM tb_usuario WHERE idusuario =:ID",array(
+          ":ID"=>$this->getIdusuario()
+            ));
+        
+        $this->setDeslogin("");
+        $this->setDessenha("");
+        $this->setIdusuario(0);
+        $this->setDtcadastro(new DateTime());
+
+     }
  	
  	public function loadByid($id){
  		$sql = new Sql();
@@ -122,7 +146,7 @@
  		)); 
 
  		if (count($results) > 0) {
- 		  $this->setData($results);
+ 		  $this->setData($results[0]);
  		}
  	}
 

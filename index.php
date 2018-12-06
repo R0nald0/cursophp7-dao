@@ -2,10 +2,10 @@
 
 require_once ("config.php");
 
-$root = new Usuario();
+//$root = new Usuario();
 
-$root->loadByid(2);
-echo $root;
+//$root->loadByid(2);
+//echo $root;
   
 //$lista = Usuario::getList();
 
@@ -28,6 +28,19 @@ echo $root;
 //$aluno = new Usuario("alu","091");
 //$aluno->insert();
 //echo $aluno;
+
+/* Atualisar dados
+$usuario =new Usuario();
+$usuario->loadByid(11);
+$usuario->update("professor","43323");
+echo $usuario;
+*/
+
+$deletar = new Usuario();
+$deletar->loadByid(19);
+echo $deletar;
+$deletar ->delete(19);
+echo $deletar;
 
 
 ?> 
